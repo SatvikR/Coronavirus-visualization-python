@@ -39,8 +39,9 @@ def main():
     state = str(input("Please Choose a State: "))
     print_counties(state, file)
     found_county = False
-    file = get_file('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv')
+    
     while not found_county:
+        file = get_file('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv')
         county = input("Please Choose a County/Region from above: ")
         found_county = check_county(state, county, file)
     x = []
