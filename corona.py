@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt; plt.rcdefaults()
+#import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
 import matplotlib.pyplot as plt
 import csv, requests
@@ -6,11 +6,10 @@ import csv, requests
 def get_file(url):
     return csv.DictReader(requests.get(url).iter_lines(decode_unicode=True))
 
-def get_data(x, y, file, state, county, title):
+def get_data(x, y, file, state, county):
     for row in file:
         if row['Province_State'] == state and row['Admin2'] == county:
             i = 0
-            title = row['Admin2'] + ' Confirmed Cases'
             for _ , value in row.items():
                 i += 1
                 if i >= 12:
@@ -29,7 +28,6 @@ def check_county(state, county, file):
     for row in file:
         if row['Admin2'] == county:
             return True
-        #print(row['Admin2'], county)
     return False
 
 
@@ -46,14 +44,22 @@ def main():
         found_county = check_county(state, county, file)
     x = []
     y = []
-    title = ''
 
     file = get_file('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv')
-    get_data(x, y, file, state, county, title)
-    fig = plt.figure(figsize=(10,9.5))
-    axes = fig.add_axes([0.1,0.1,0.8,0.8])
-    axes.scatter(x, y)
-    axes.plot(x,y)
+    get_data(x, y, file, state, county)
+    fig_size = plt.rcParams["figure.figsize"]
+
+    print("Current size:", fig_size)
+
+    fig_size[0] = 9
+    fig_size[1] = 9
+    plt.rcParams["figure.figsize"] = fig_size
+    plt.scatter(x, y)
+    plt.plot(x,y)
+    plt.ylabel("Infected Citizens")
+    plt.xlabel("Days")
+    title = "Confirmed Cases in " + county + ", " + state + " For The Past 100 Days"
+    plt.title(title)
     plt.show()
 
 if __name__ == '__main__':
