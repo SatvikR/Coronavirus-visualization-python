@@ -10,7 +10,7 @@ def get_data(x, y, file, state, county, title):
     for row in file:
         if row['Province_State'] == state and row['Admin2'] == county:
             i = 0
-            title = row['Admin2'] + ' Coronavirus Stats'
+            title = row['Admin2'] + ' Confirmed Cases'
             for _ , value in row.items():
                 i += 1
                 if i >= 12:
