@@ -47,18 +47,19 @@ def main():
 
     file = get_file('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv')
     get_data(x, y, file, state, county)
+
     fig_size = plt.rcParams["figure.figsize"]
-
-    print("Current size:", fig_size)
-
     fig_size[0] = 9
     fig_size[1] = 9
     plt.rcParams["figure.figsize"] = fig_size
+
     plt.scatter(x, y)
     plt.plot(x,y)
+
     plt.ylabel("Infected Citizens")
     plt.xlabel("Days")
     title = "Confirmed Cases in " + county + ", " + state + " For The Past 100 Days"
+    
     plt.title(title)
     plt.show()
 
