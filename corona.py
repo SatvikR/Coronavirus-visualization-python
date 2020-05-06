@@ -52,7 +52,7 @@ def main():
     print_counties(state, file)
 
     found_county = False
-    
+
     while not found_county:
         file = get_file(raw_data)
         county = input("Please Choose a County/Region from above: ")
@@ -74,7 +74,7 @@ def main():
     plt.ylabel("Infected Citizens")
     plt.xlabel("Days")
     title = "Confirmed Cases in " + county + ", " + state + " For The Past 100 Days"
-    
+
     plt.title(title)
     plt.show()
 
