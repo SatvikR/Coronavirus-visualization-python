@@ -1,7 +1,6 @@
-#import matplotlib.pyplot as plt; plt.rcdefaults()
-import numpy as np
 import matplotlib.pyplot as plt
-import csv, requests
+import csv
+import requests
 
 def get_file(url):
     return csv.DictReader(requests.get(url).iter_lines(decode_unicode=True))
