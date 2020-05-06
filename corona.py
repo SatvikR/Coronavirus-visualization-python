@@ -30,21 +30,37 @@ def check_county(state, county, file):
     return False
 
 
-def main():
-    file = get_file('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv')
+def check_state(state, file):
+    for row in file:
+        if row['Province_State'] == state:
+            return True
+    return False
 
-    state = str(input("Please Choose a State: "))
+
+def main():
+    raw_data = (
+        "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
+    )
+
+    found_state = False
+
+    while not found_state:
+        file = get_file(raw_data)
+        state = str(input("Please Choose a State: "))
+        found_state = check_state(state, file)
+
     print_counties(state, file)
+
     found_county = False
     
     while not found_county:
-        file = get_file('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv')
+        file = get_file(raw_data)
         county = input("Please Choose a County/Region from above: ")
         found_county = check_county(state, county, file)
     x = []
     y = []
 
-    file = get_file('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv')
+    file = get_file(raw_data)
     get_data(x, y, file, state, county)
 
     fig_size = plt.rcParams["figure.figsize"]
