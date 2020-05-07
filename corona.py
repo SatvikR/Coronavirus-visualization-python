@@ -2,14 +2,16 @@ import matplotlib.pyplot as plt
 import csv
 import requests
 
+
 def get_file(url):
     return csv.DictReader(requests.get(url).iter_lines(decode_unicode=True))
+
 
 def get_data(x, y, file, state, county):
     for row in file:
         if row['Province_State'] == state and row['Admin2'] == county:
             i = 0
-            for _ , value in row.items():
+            for _, value in row.items():
                 i += 1
                 if i >= 12:
                     x.append(i - 11)
@@ -69,14 +71,16 @@ def main():
     plt.rcParams["figure.figsize"] = fig_size
 
     plt.scatter(x, y)
-    plt.plot(x,y)
+    plt.plot(x, y)
 
     plt.ylabel("Infected Citizens")
     plt.xlabel("Days")
-    title = "Confirmed Cases in " + county + ", " + state + " For The Past 100 Days"
+    title = "Confirmed Cases in " + county + \
+        ", " + state + " For The Past 100 Days"
 
     plt.title(title)
     plt.show()
+
 
 if __name__ == '__main__':
     main()
